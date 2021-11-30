@@ -1,3 +1,16 @@
+// string_read_main.cpp
+// A. Harrison Owen
+// 2021-11-29
+//
+// For CS 311 Fall 2021
+// Required files to run: string_read.cpp, string_read.hpp
+//
+// Description: Program reads a user specified file and
+//              prints each unique word in the file as well as
+//              the frequency it appears in the file.
+//
+// Invariants: Program looks for (or opens) file in the debug folder for the .cpp files.
+//
 #include "string_read.hpp"
 #include <iostream>
 using std::cin;
@@ -21,30 +34,28 @@ bool checkUserInput(const string & filename){
         cout << "Exiting code.\n";
         return false;
     }
-    //string txt = ".txt";
-    //return std::equal(filename.end()-4, filename.end(), txt.begin());
     return true;
 }
 
-/*
- * Takes user input to read a file
- * If user wants to exit program, hit ENTER until
- * "Program complete." message appears.
- */
+
+// Takes user input to read a file
+// If user wants to exit program, hit ENTER until the
+// "Program complete." message appears.
+//
 int main() {
-	map<string, size_t> words;
+	map<string, size_t> wordsInFile;
 	string getFileName;
 	cout << "Enter a file or hit ENTER to quit: ";
 	getline(cin, getFileName);
 	//keeps running until user hits ENTER key
 	while (checkUserInput(getFileName)) {
-		if (readFile(words, getFileName)) {
-			string print = printMap(words).str();
+		if (readFile(wordsInFile, getFileName)) {
+			string print = printMap(wordsInFile).str();
 			cout << print << endl;
 		}
-		cout << "Enter file or hit ENTER twice to quit: ";
+		cout << "Enter file or hit ENTER to quit: ";
 		getline(cin, getFileName);
-		words.clear();
+		wordsInFile.clear();
 	}
 	cout << "\nProgram complete. Have an absolutely wonderful day :))" << endl;
 }

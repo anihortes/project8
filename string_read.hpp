@@ -1,3 +1,11 @@
+// string_read.hpp
+// A. Harrison Owen
+// 2021-11-29
+//
+// For CS 311 Fall 2021
+// Header file for string_read.cpp
+// Program description defined in string_read_main.cpp
+//
 #ifndef STRING_READ_H
 #define STRING_READ_H
 
@@ -36,7 +44,7 @@ void cleanWords(std::map<std::string, std::size_t> & words, const std::string & 
 // Exception safety guarantee:
 //     Strong Guarantee
 //     Exception neutral
-bool readFile(std::map<std::string, std::size_t> & words, const std::string & getFileName);
+bool readFile(std::map<std::string, std::size_t> & wordsInFile, const std::string & getFileName);
 
 // printMap
 // Puts contents of a map into a string-stream for printing.

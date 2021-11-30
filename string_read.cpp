@@ -1,3 +1,10 @@
+// string_read.cpp
+// A. Harrison Owen
+// 2021-11-29
+//
+// For CS 311 Fall 2021
+// Program description defined in string_read_main.cpp
+//
 #include <iostream>
 using std::cout;
 using std::cin;
@@ -19,7 +26,7 @@ using std::transform;
 using std::size_t;
 
 // See header file for implementation
-void cleanWords(map <string, size_t> & words, const string & line) {
+void cleanWords(map <string, size_t> & wordsInFile, const string & line) {
     // take a line of a file and put it on the stringstream for parsing
 	istringstream iStringStreamOnLine(line);
 	string str; // dummy string used to look in stringstream
@@ -38,25 +45,25 @@ void cleanWords(map <string, size_t> & words, const string & line) {
         str.end());
 
 		// If word is found add to value
-		if (words.count(str) != 0) {
-			words[str] ++;
+		if (wordsInFile.count(str) != 0) {
+			wordsInFile[str] ++;
 		}
 
 		// removes empty strings
 		else if (str.empty()) {
 			str = "";
-			words.erase("");
+			wordsInFile.erase("");
 		}
 
 		// if word is not found set value to 1
 		else {
-			words[str] = 1;
+			wordsInFile[str] = 1;
 		}
 	}
 }
 
 // See header file for implementation
-bool readFile(map <string, size_t> & words, const string & getFileName) {
+bool readFile(map <string, size_t> & wordsInFile, const string & getFileName) {
 	ifstream fin(getFileName);
 	while (!fin) {
 		cout << "Error finding file." << endl;
@@ -74,15 +81,16 @@ bool readFile(map <string, size_t> & words, const string & getFileName) {
 			}
 			return true;
 		}
-		cleanWords(words, line);
+		cleanWords(wordsInFile, line);
 	}
+	// safety bool
 	return true;
 }
 
 // Iterate through map and find largest word
-size_t maxElement(const map<string, size_t> & words) {
+size_t maxElement(const map<string, size_t> & wordsInFile) {
 	size_t largeWord = 0;
-	for (const auto & p : words) {
+	for (const auto & p : wordsInFile) {
 		if (p.first.size() > largeWord) {
             largeWord = p.first.size();
 		}
@@ -91,13 +99,13 @@ size_t maxElement(const map<string, size_t> & words) {
 }
 
 // See header file for implementation
-std::ostringstream printMap(const map<string, size_t> & words) {
+std::ostringstream printMap(const map<string, size_t> & wordsInFile) {
 	std::ostringstream ss1;
 	// sets distance between keys and values to a constant distance for ease of reading
-	ss1 << "WORD" << std::setw(maxElement(words) + 2) << "COUNT" << endl;
-	for (const auto & p : words) {
+	ss1 << "WORD" << std::setw(maxElement(wordsInFile) + 2) << "COUNT" << endl;
+	for (const auto & p : wordsInFile) {
 		size_t set = p.first.size() - to_string(p.second).size();
-		ss1 << p.first << std::setw(maxElement(words) + 1 - set) << p.second << endl;
+		ss1 << p.first << std::setw(maxElement(wordsInFile) + 1 - set) << p.second << endl;
 	}
 	return ss1;
 }
